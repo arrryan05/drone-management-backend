@@ -7,7 +7,6 @@ export async function verifyFirebaseToken(
   next: NextFunction
 ) {
   const authHeader = req.headers.authorization;
-  console.log('Incoming token:', authHeader);
 
   if (!authHeader?.startsWith('Bearer ')) {
     return res.status(401).send({ error: 'Missing or invalid Authorization header' });

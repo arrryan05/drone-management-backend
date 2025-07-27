@@ -4,6 +4,7 @@ import http from 'http';
 import cors from 'cors';
 import { initializeApp, applicationDefault } from 'firebase-admin/app';
 import missionRouter from './routes/mission';
+import reportRouter from './routes/report';
 import { PrismaClient } from '@prisma/client';
 import { Server } from 'socket.io';
 import IORedis from 'ioredis';
@@ -18,6 +19,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/missions', missionRouter);
+app.use('/reports', reportRouter);
 app.get('/health', (_req, res) => res.send({ status: 'ok' }));
 
 // Create HTTP & Socket.IO servers

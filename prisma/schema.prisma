@@ -15,6 +15,9 @@ model Mission {
   overlap    Int
   createdAt  DateTime   @default(now())
   waypoints  Waypoint[]
+
+  flightLogs FlightLog[]
+  report     MissionReport?
 }
 
 model Waypoint {
@@ -24,4 +27,25 @@ model Waypoint {
   lat       Float
   lng       Float
   order     Int
+}
+
+model FlightLog {
+  id         String    @id @default(cuid())
+  mission    Mission   @relation(fields: [missionId], references: [id])
+  missionId  String
+  timestamp  DateTime  @default(now())
+  lat        Float
+  lng        Float
+  progress   Int
+  status     String
+}
+
+model MissionReport {
+  mission     Mission   @relation(fields: [missionId], references: [id])
+  missionId   String    @id
+  totalLogs   Int
+  startTime   DateTime
+  endTime     DateTime
+  durationSec Int
+  generatedAt DateTime  @default(now())
 }

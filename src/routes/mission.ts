@@ -12,8 +12,6 @@ const redisConn = new IORedis({
 });
 const missionQueue = new Queue('missions', { connection: redisConn });
 
-
-
 const router = Router();
 router.use(verifyFirebaseToken);
 
@@ -82,6 +80,7 @@ router.get('/:id', async (req, res) => {
 // POST /missions/:id/start
 router.post('/:id/start', verifyFirebaseToken, async (req, res) => {
   const missionId = req.params.id;
+  
   // fetch waypoints from DB
   const mission = await prisma.mission.findUnique({
     where: { id: missionId },

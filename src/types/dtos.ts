@@ -19,3 +19,11 @@ export interface Telemetry {
   progress: number;    // 0–100
   status: 'in_progress' | 'completed' | 'paused' | 'aborted';
 }
+
+export interface DroneDTO {
+  id: string;
+  name: string;
+  model: string;
+  status: string;
+  batteryPct: number;
+}
