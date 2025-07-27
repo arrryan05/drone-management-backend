@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Mission {
+  id         String     @id @default(cuid())
+  uid        String     // Firebase user ID
+  pattern    String
+  altitude   Int
+  overlap    Int
+  createdAt  DateTime   @default(now())
+  waypoints  Waypoint[]
+}
+
+model Waypoint {
+  id        String   @id @default(cuid())
+  mission   Mission  @relation(fields: [missionId], references: [id])
+  missionId String
+  lat       Float
+  lng       Float
+  order     Int
+}
